@@ -15,7 +15,6 @@ fn main() {
         .allowlist_var("SGIO_SCSI_BUGGY1")
         .allowlist_var("strerror_tr")
         .allowlist_type("TOC")
-        .allowlist_function("is_audio")
         .allowlist_var("CD_.*")
         .allowlist_var("CDDA_.*")
         .allowlist_var("TR_.*")
