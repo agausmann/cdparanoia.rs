@@ -403,18 +403,16 @@ impl CdromParanoia {
         }
     }
 
-    pub fn seek(&self, pos: SeekFrom) -> i64 {
+    pub fn seek(&self, pos: SeekFrom) -> Result<u64, Error> {
         let (mode, index): (c_int, c_long) = match pos {
             SeekFrom::Start(x) => (SEEK_SET, x.try_into().unwrap()),
             SeekFrom::End(x) => (SEEK_END, x.try_into().unwrap()),
             SeekFrom::Current(x) => (SEEK_CUR, x.try_into().unwrap()),
         };
 
-        unsafe {
-            cdparanoia_sys::paranoia_seek(self.raw.as_ptr(), index, mode)
-                .try_into()
-                .unwrap()
-        }
+        let result = unsafe { cdparanoia_sys::paranoia_seek(self.raw.as_ptr(), index, mode) };
+        Error::from_raw_long(result)?;
+        Ok(result.try_into().unwrap())
     }
 
     /// Reads the next sector of audio data and returns a full sector of
