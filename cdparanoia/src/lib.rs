@@ -1,5 +1,6 @@
 use std::{
     ffi::{c_char, c_int, c_long, CStr},
+    fmt,
     io::SeekFrom,
     ops::Deref,
     ptr::{null_mut, NonNull},
@@ -8,6 +9,7 @@ use std::{
 use bitflags::bitflags;
 use libc::{c_void, SEEK_CUR, SEEK_END, SEEK_SET};
 
+pub use cdparanoia_sys;
 pub use cdparanoia_sys::{CD_FRAMESAMPLES, CD_FRAMESIZE, CD_FRAMESIZE_RAW, CD_FRAMEWORDS};
 
 pub fn cdda_version() -> &'static CStr {
@@ -25,6 +27,7 @@ pub enum Verbosity {
     LogIt = cdparanoia_sys::CDDA_MESSAGE_LOGIT,
 }
 
+#[derive(Debug)]
 pub struct Error {
     raw: c_int,
 }
@@ -54,6 +57,17 @@ impl Error {
         ErrorCode::from_raw(self.raw)
     }
 }
+
+impl fmt::Display for Error {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        match self.code() {
+            Some(code) => write!(f, "{}", code),
+            None => write!(f, "Unknown error code {}", self.raw),
+        }
+    }
+}
+
+impl std::error::Error for Error {}
 
 #[derive(Debug, Clone, Copy, PartialEq, displaydoc::Display)]
 #[non_exhaustive]
