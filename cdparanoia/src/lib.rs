@@ -31,7 +31,7 @@ pub struct Error {
 
 impl Error {
     pub fn from_raw(raw: c_int) -> Result<(), Self> {
-        if raw < 0 {
+        if raw >= 0 {
             Ok(())
         } else {
             Err(Self { raw })
@@ -39,7 +39,7 @@ impl Error {
     }
 
     pub fn from_raw_long(raw: c_long) -> Result<(), Self> {
-        if raw < 0 {
+        if raw >= 0 {
             Ok(())
         } else {
             Err(Self { raw: raw as _ })
