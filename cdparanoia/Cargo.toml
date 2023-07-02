@@ -1,7 +1,15 @@
 [package]
 name = "cdparanoia"
 version = "0.1.0"
+authors = ["Adam Gausmann <adam@gaussian.dev>"]
 edition = "2021"
+description = "Safe bindings for libcdparanoia"
+readme = "../README.md"
+homepage = "https://sr.ht/~agausmann/cdparanoia.rs"
+repository = "https://git.sr.ht/~agausmann/cdparanoia.rs"
+license = "BSD-2-Clause"
+keywords = ["rip", "cd", "cdparanoia"]
+categories = ["api-bindings", "multimedia::audio"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
