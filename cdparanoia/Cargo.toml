@@ -6,3 +6,7 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+bitflags = "2.3.3"
+cdparanoia-sys = { version = "0.1.0", path = "../cdparanoia-sys" }
+displaydoc = "0.2.4"
+libc = "0.2.147" 
